@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {sampleData,autoAssign,validate,statusFor,candidates} from '../dist/core.js';
+const date='2026-10-04';
+test('missing is not submitted, separate from explicit unavailable',()=>{const {members,rows}=sampleData(date);assert.equal(statusFor(rows,members[15].id,date,'first'),'not_submitted');assert.equal(statusFor(rows,members[4].id,date,'first'),'not_available');assert.equal(statusFor(rows,members[0].id,'2026-10-11','first'),'not_submitted');});
+test('auto assignment finds 10 eligible unique people',()=>{const {members,rows}=sampleData(date);const result=autoAssign(members,rows,date,'first');assert.equal(Object.keys(result).length,10);assert.deepEqual(validate(result,members,rows,date,'first'),[]);assert.equal(new Set(Object.values(result)).size,10);});
+test('auto assignment preserves manual selections',()=>{const {members,rows}=sampleData(date);const result=autoAssign(members,rows,date,'first',{cam_1:'demo-1'});assert.equal(result.cam_1,'demo-1');assert.deepEqual(validate(result,members,rows,date,'first'),[]);});
+test('ineligible, inactive, unavailable and duplicate duties fail',()=>{const {members,rows}=sampleData(date);members[5].active=false;assert(!candidates(members,rows,date,'first','producer').some(m=>m.id==='demo-5'));assert.equal(validate({producer:'demo-0'},members,rows,date,'first',false).length,1);assert.equal(validate({cam_1:'demo-0',cam_2:'demo-0'},members,rows,date,'first',false).length,1);assert.equal(validate({cam_1:'demo-4'},members,rows,date,'first',false).length,1);});
+test('draft may be incomplete; publish requires all positions',()=>{const {members,rows}=sampleData(date);assert.equal(validate({},members,rows,date,'first',false).length,0);assert.equal(validate({},members,rows,date,'first',true).length,10);});
+test('undersupplied service stays incomplete without duplicates',()=>{const {members,rows}=sampleData(date);const result=autoAssign(members.slice(0,3),rows,date,'first');assert.equal(new Set(Object.values(result)).size,Object.keys(result).length);assert(validate(result,members,rows,date,'first').length>0);});

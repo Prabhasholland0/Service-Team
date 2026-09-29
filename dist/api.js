@@ -10,3 +10,11 @@ export async function loadDay(date){
 }
 export async function uploadPhoto(userId,file){if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>2*1024*1024)throw Error('Choose a JPG, PNG, or WebP under 2 MB.');const path=`${userId}/${crypto.randomUUID()}.${file.type.split('/')[1]}`;const {error}=await db.storage.from('avatars').upload(path,file,{contentType:file.type});if(error)throw error;return path;}
 export async function photoUrl(path){if(!path)return '';const {data,error}=await db.storage.from('avatars').createSignedUrl(path,3600);return error?'':data.signedUrl;}
+// Check schema readiness without retrieving any member records.
+export async function checkSetup(){
+ const res=await fetch(`${SUPABASE_URL}/rest/v1/profiles?select=id&limit=0`,{headers:{apikey:SUPABASE_PUBLISHABLE_KEY}});
+ if(res.status===404){const body=await res.json();if(body.code==='PGRST205')return false;}
+ if(res.status>=500)throw Error('The team database is temporarily unavailable. Try again shortly.');
+ if(res.status===401){const body=await res.json();if(body.code!=='42501')throw Error('The project connection needs attention. Contact your administrator.');}
+ return true;
+}

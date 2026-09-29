@@ -4,7 +4,7 @@ A responsive web application for desktop and mobile browsers. Members choose ser
 
 ## Current delivery
 
-The private website opens in a clearly labeled **sample workspace** until Supabase is configured. Sample edits last for the current visit and are never presented as database saves. No real users or contact information are seeded. This is a mobile-friendly website, not an App Store or Play Store native package.
+The public Supabase project URL and publishable key are configured for project `bwsdlzeqwjozxlkpkdhy`. The connection was verified; application tables still need to be created. Until then the website shows a setup-pending message. No secret key is included. If the public configuration is cleared, the website opens in a clearly labeled **sample workspace**. Sample edits last for the current visit and are never presented as database saves. No real users or contact information are seeded. This is a mobile-friendly website, not an App Store or Play Store native package.
 
 ## Activate the real application
 
@@ -53,3 +53,4 @@ Tests cover eligibility, scarce-role matching, preserved manual choices, duplica
 Database tests use local mock Supabase authentication tables/functions. Real Supabase email delivery, deployed Auth, storage upload policies and multi-device operation still require a configured project for end-to-end verification. PGlite tests do not simulate concurrent database sessions.
 
 Source reference: [Supabase JavaScript initialization](https://supabase.com/docs/reference/javascript/initializing), [email sign-up](https://supabase.com/docs/reference/javascript/auth-signup), and [user profiles](https://supabase.com/docs/guides/auth/managing-user-data).
+

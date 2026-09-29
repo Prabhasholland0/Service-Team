@@ -6,6 +6,7 @@ test('database authorization, persistence, publication and invalidation',async()
  const db=new PGlite();
  await db.exec(`create role anon; create role authenticated; create schema auth; create table auth.users(id uuid primary key,email text,raw_user_meta_data jsonb); create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$; grant usage on schema auth,public to authenticated,anon; grant execute on function auth.uid() to authenticated;`);
  await db.exec(await readFile(new URL('../supabase/001_schema.sql',import.meta.url),'utf8'));
+ await db.exec(await readFile(new URL('../supabase/camera-count.sql',import.meta.url),'utf8'));
  const ids=Array.from({length:12},(_,i)=>`00000000-0000-0000-0000-${String(i+1).padStart(12,'0')}`);
  for(let i=0;i<ids.length;i++)await db.query(`insert into auth.users values($1,$2,$3)`,[ids[i],`member${i}@example.com`,JSON.stringify({full_name:`Member ${i}`,is_admin:true})]);
  assert.equal((await db.query('select count(*)::int n from public.profiles where is_admin')).rows[0].n,0,'user metadata cannot grant admin');
@@ -47,6 +48,20 @@ test('database authorization, persistence, publication and invalidation',async()
  await db.query(`select public.manage_member($1,'{}',true)`,[ids[1]]);
  assert.equal((await db.query('select status from public.schedules where id=$1',[sid])).rows[0].status,'draft');
  assert.equal((await db.query(`select * from public.assignments where position='ccu'`)).rows.length,0);
+ await db.query(`select public.manage_member($1,array['camera','ccu'],true)`,[ids[1]]);
+ const currentRevision=async()=> (await db.query('select revision from public.schedules where id=$1',[sid])).rows[0].revision;
+ const resize=async(count,a,publish=true)=>db.query(`select public.save_schedule('2026-10-04','first',$1,$2,$3,$4)`,[JSON.stringify(a),publish,await currentRevision(),count]);
+ const leadership={producer:ids[0],ccu:ids[1]};
+ await resize(0,leadership);
+ assert.equal((await db.query('select camera_count from public.schedules where id=$1',[sid])).rows[0].camera_count,0);
+ assert.equal((await db.query('select * from public.assignments where schedule_id=$1',[sid])).rows.length,2);
+ await assert.rejects(()=>resize(17,{},false),/between 0 and 16/);
+ await assert.rejects(()=>resize(0,{...leadership,cam_1:ids[3]},false),/Invalid assignment position/);
+ await assert.rejects(()=>resize(3,leadership),/Fill all 5/);
+ await resize(3,{...leadership,cam_1:ids[3],cam_2:ids[4],cam_3:ids[5]});
+ assert.equal((await db.query('select camera_count from public.schedules where id=$1',[sid])).rows[0].camera_count,3);
+ await resize(16,{cam_16:ids[3]},false);
+ assert.equal((await db.query(`select * from public.assignments where position='cam_16'`)).rows.length,1);
  await db.exec('reset role; set role anon');
  await assert.rejects(()=>db.query('select * from public.availability'),/permission denied/);
  await assert.rejects(()=>db.query(`select public.submit_availability('2026-10-04','{}')`),/permission denied/);

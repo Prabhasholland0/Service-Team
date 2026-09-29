@@ -1,17 +1,20 @@
 export const services = [{id:'first',name:'1st Service'},{id:'second',name:'2nd Service'},{id:'hindi',name:'Hindi Service'},{id:'telugu',name:'Telugu Service'}];
-export const positions = ['producer','ccu',...Array.from({length:8},(_,i)=>`cam_${i+1}`)];
+export function positionsFor(count=8){if(!Number.isInteger(count)||count<0||count>16)throw Error('Choose between 0 and 16 cameras.');return ['producer','ccu',...Array.from({length:count},(_,i)=>`cam_${i+1}`)];}
+export const positions=positionsFor();
 export const roleFor = p => p.startsWith('cam_') ? 'camera' : p;
 export const positionName = p => p==='producer'?'Producer':p==='ccu'?'CCU':`Cam ${p.split('_')[1]}`;
 export const statusFor = (rows,user,date,service) => rows.find(r=>r.user_id===user&&r.service_date===date&&r.service_id===service)?.status ?? 'not_submitted';
 export function candidates(members,rows,date,service,position) { return members.filter(m=>m.active&&m.skills.includes(roleFor(position))&&statusFor(rows,m.id,date,service)==='available'); }
-export function validate(assignments,members,rows,date,service,complete=true){
-  const errors=[],used=new Map();
+export function validate(assignments,members,rows,date,service,complete=true,cameraCount=8){
+  const positions=positionsFor(cameraCount);
+  const errors=Object.keys(assignments).filter(p=>!positions.includes(p)).map(p=>`${positionName(p)} is outside the selected camera count.`),used=new Map();
   for(const p of positions){const id=assignments[p];if(!id){if(complete)errors.push(`${positionName(p)} needs a team member.`);continue;}
     if(!candidates(members,rows,date,service,p).some(m=>m.id===id))errors.push(`${positionName(p)}: member is unavailable, inactive, or missing the required skill.`);
     if(used.has(id))errors.push(`${positionName(p)}: member is already assigned to ${positionName(used.get(id))}.`);used.set(id,p);
   } return errors;
 }
-export function autoAssign(members,rows,date,service,existing={}){
+export function autoAssign(members,rows,date,service,existing={},cameraCount=8){
+  const positions=positionsFor(cameraCount);
   const result={...existing}, occupied=new Map(Object.entries(result).filter(([,id])=>id).map(([p,id])=>[id,p]));
   const fixed=new Set(Object.keys(result).filter(p=>result[p]));
   function match(p,seen){for(const m of candidates(members,rows,date,service,p)){if(seen.has(m.id))continue;seen.add(m.id);const prior=occupied.get(m.id);if(!prior||(!fixed.has(prior)&&match(prior,seen))){occupied.set(m.id,p);result[p]=m.id;return true;}}return false;}

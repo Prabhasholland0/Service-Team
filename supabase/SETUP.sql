@@ -127,6 +127,8 @@ revoke execute on function public.is_team_admin(),public.is_active_member(),publ
 grant execute on function public.is_team_admin(),public.is_active_member(),public.save_profile(text,text,text),public.submit_availability(date,text[]),public.manage_member(uuid,text[],boolean),public.save_schedule(date,text,jsonb,boolean,integer),public.published_schedule(date) to authenticated;
 commit;
 
+-- Apply supabase/camera-count.sql after this setup to enable the admin camera-count control.
+
 -- Apply after 001_schema.sql in the same Supabase project's SQL editor.
 begin;
 insert into storage.buckets(id,name,public,file_size_limit,allowed_mime_types)

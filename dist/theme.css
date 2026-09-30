@@ -41,3 +41,12 @@ dialog{color:#1c3156;border-color:var(--line);box-shadow:0 24px 100px #061a4940}
 #toast{background:var(--navy);color:#fff;box-shadow:inset 4px 0 0 var(--lime),0 6px 24px #061a4928}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.avatar-link:focus-visible,.table-scroll:focus-visible{outline-color:#3172d9}
 .sidebar button:focus-visible{outline-color:var(--lime)}
+/* Refined account block: clear identity, role, and action hierarchy. */
+.sidebar .account{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;gap:12px;margin:26px 4px 0;padding:18px 4px 0;border-top:1px solid #ffffff20}
+.sidebar .account .avatar-link{width:48px;height:48px;min-width:48px;min-height:48px;padding:0;border-radius:50%;background:#edf3ff;box-shadow:0 3px 10px #0003}
+.sidebar .account .avatar{width:48px;height:48px;background:#edf3ff;color:#1551a4;font-size:.9rem;border:2px solid #fff}
+.sidebar .account .small{display:block;color:#fff;font-size:.95rem;font-weight:700;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar .account small{display:block;color:#a9bde3;font-size:.78rem;line-height:1.4;margin-top:2px}
+.sidebar .account .signout{display:inline-flex;align-items:center;min-height:32px;margin-top:8px;padding:0 10px;border:1px solid #ffffff2b;border-radius:7px;color:#cfdbf2;font-size:.75rem;transition:background .2s,color .2s,border-color .2s}
+.sidebar .account .signout:hover{background:#ffffff14;border-color:#ffffff55;color:#fff}
+@media(max-width:760px){.sidebar .account{display:none}}

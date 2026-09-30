@@ -80,3 +80,43 @@
  .welcome-access h2{font-size:1.6rem;margin-bottom:12px}
  .welcome-form{gap:8px}
 }
+/* Use the available phone screen with the browser toolbar visible. */
+@media(max-width:899px){
+ .welcome-page{min-height:100svh}
+ .welcome-story{padding-top:max(10px,env(safe-area-inset-top));padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+ .welcome-access{padding-bottom:max(14px,env(safe-area-inset-bottom));padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+}
+@media(min-width:550px) and (max-width:899px) and (max-height:500px){
+ .welcome-page{grid-template-columns:minmax(0,.85fr) minmax(0,1.5fr);grid-template-rows:1fr}
+ .welcome-story{justify-content:center;gap:20px;padding-block:12px}
+ .welcome-ministry{display:none}
+ .welcome-page:has(input[name="full_name"]) .welcome-message{display:block}
+ .welcome-message{padding:0}.scripture-card blockquote{font-size:1rem}
+ .welcome-access{padding-block:12px}
+ .welcome-access h2{font-size:1.5rem;margin-bottom:10px}
+ .welcome-form{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px}
+ .welcome-form .field{min-width:0;gap:4px}
+ .welcome-form .field:has([name="full_name"]){grid-column:1/-1}
+ .welcome-form .input{width:100%;min-width:0;min-height:44px;padding:9px 10px}
+ .welcome-password-guide,.welcome-submit{grid-column:1/-1}
+ .welcome-password-guide{margin:0}
+ .welcome-form .welcome-submit{min-height:44px;margin:0;padding:9px 12px}
+ .welcome-switch{margin-top:4px}
+}
+@media(max-width:899px) and (max-height:550px) and (orientation:portrait){
+ .welcome-story{padding:8px 18px}.welcome-header{gap:10px}.welcome-ministry{font-size:8px;line-height:1.5}.welcome-message{padding-top:6px}
+ .scripture-card blockquote{font-size:.875rem;line-height:1.25;margin-bottom:4px}.scripture-card cite{font-size:10px}
+ .welcome-access{padding:8px 18px}.welcome-access h2{font-size:1.2rem;line-height:1.15;letter-spacing:-.5px;margin-bottom:8px}
+ .welcome-form{gap:4px}.welcome-form .field{font-size:14px;line-height:16px;gap:4px}
+ .welcome-form .input{height:44px;min-height:44px;padding:8px 12px;line-height:1.25}
+ .welcome-form .welcome-submit{height:44px;min-height:44px;padding:8px 12px;margin-top:0}
+ .welcome-password-guide{font-size:11px;line-height:14px;margin:0}
+ .welcome-switch{margin-top:4px;font-size:11px;gap:0 5px}.welcome-switch button{font-size:12px;line-height:1.2}
+}
+@media(max-width:374px) and (max-height:550px) and (orientation:portrait){.welcome-access h2{font-size:1.1rem;letter-spacing:-.65px;line-height:1.15}.welcome-story{padding-block:6px}.welcome-access{padding-block:6px}}
+@media(min-width:550px) and (max-width:899px) and (max-height:350px){
+ .welcome-access{padding-block:8px}
+ .welcome-access h2{font-size:1.2rem;letter-spacing:-.5px;margin-bottom:8px}
+ .welcome-form .field{line-height:16px}
+ .welcome-form{gap:6px 10px}
+}

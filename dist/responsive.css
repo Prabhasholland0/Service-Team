@@ -3,12 +3,16 @@ html{scroll-padding-top:90px}
 img,video,canvas,svg{max-width:100%}
 .layout{display:block;padding-bottom:0;min-height:100dvh}
 .sidebar{display:none}
+.brand{border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.avatar-link{display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;padding:0;border-radius:50%;cursor:pointer;color:inherit;min-width:44px;min-height:44px}
+.avatar-link:focus-visible{outline:3px solid #6dbfa5;outline-offset:3px}
 .main,.content,.panel,.field,.person>div,.account>div,.assignment-layout>*,.form-grid>*,.stat,.team-cards>*{min-width:0}
 .content{padding:24px max(16px,env(safe-area-inset-right)) 32px max(16px,env(safe-area-inset-left));padding-bottom:max(32px,env(safe-area-inset-bottom))}
 .topbar{position:sticky;top:0;z-index:10;padding:12px max(12px,env(safe-area-inset-right)) 12px max(12px,env(safe-area-inset-left));min-height:68px;gap:8px}
 .menu-toggle{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink)}
 .breadcrumb{display:none}
 .mobile-brand{display:flex;align-items:center;gap:8px;font:800 1rem Manrope,sans-serif;min-width:0;flex:1}
+.mobile-brand{border:0;background:transparent;color:inherit;cursor:pointer;padding:0;text-align:left;min-height:44px}
 .mobile-brand img{width:29px;height:29px}
 .top-right{gap:8px;flex-shrink:0}
 .top-right .pill{display:none}
@@ -69,6 +73,7 @@ td,th{padding:13px 15px}
 .panel-footer .btn{width:100%}
 .team-cards{grid-template-columns:minmax(0,1fr)}
 .member-card{padding:20px}
+.member-actions{display:grid;gap:8px;margin-top:13px}.member-actions .btn{width:100%;margin-top:0}.btn.danger{border-color:#efc6be;color:#9c493c;background:#fff7f5}.btn.lime{background:var(--lime);border-color:var(--lime);color:#17302a}.team-section{margin-bottom:30px}.previous-members{border-top:1px solid var(--line);padding-top:26px}
 .auth{margin:10px auto}
 .mobile-only{display:block}
 .checkboxes label{min-height:44px}

@@ -4,7 +4,11 @@ export let db;
 export async function connect(){if(!configured)return null;const {createClient}=await import('./vendor/supabase.js');db=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);return db;}
 export async function rpc(name,args){const {data,error}=await db.rpc(name,args);if(error)throw error;return data;}
 export async function loadDay(date){
- const [p,a,s]=await Promise.all([db.from('profiles').select('*').order('full_name'),db.from('availability').select('*').eq('service_date',date),db.from('schedules').select('*,assignments(*)').eq('service_date',date)]);
+ const [p,a,s]=await Promise.all([
+  db.from('profiles').select('id,full_name,email,phone,avatar_url,skills,active,is_admin').order('full_name'),
+  db.from('availability').select('user_id,service_date,service_id,status,submitted_at').eq('service_date',date),
+  db.from('schedules').select('id,service_date,service_id,camera_count,status,revision,updated_at,updated_by,assignments(position,user_id)').eq('service_date',date)
+ ]);
  for(const result of [p,a,s])if(result.error)throw result.error;
  return {members:p.data,rows:a.data,schedules:s.data.map(s=>({...s,assignments:Object.fromEntries(s.assignments.map(a=>[a.position,a.user_id]))}))};
 }

@@ -50,3 +50,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .sidebar .account .signout{display:inline-flex;align-items:center;min-height:32px;margin-top:8px;padding:0 10px;border:1px solid #ffffff2b;border-radius:7px;color:#cfdbf2;font-size:.75rem;transition:background .2s,color .2s,border-color .2s}
 .sidebar .account .signout:hover{background:#ffffff14;border-color:#ffffff55;color:#fff}
 @media(max-width:760px){.sidebar .account{display:none}}
+.mobile-bottom-nav{display:none}
+@media(max-width:899px){
+ .layout:has(.mobile-bottom-nav){padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+ .mobile-bottom-nav{position:fixed;inset:auto 0 0;z-index:20;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:6px max(6px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left));background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 20px #061a4907}
+ .mobile-bottom-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:58px;padding:6px 2px;border-radius:8px;background:transparent;color:#566782;font-size:12px;line-height:1.2}
+ .mobile-bottom-nav button[aria-current="page"]{background:#eef5e5;color:#163f69;font-weight:700}
+ .mobile-bottom-nav .icon{width:20px;height:20px}
+}

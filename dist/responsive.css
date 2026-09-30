@@ -138,3 +138,5 @@ body:has(dialog[open]){overflow:hidden}
 }
 @media(min-width:1450px){.content{padding-top:42px}.stat{padding:24px}.duty-grid.cameras{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){dialog[open]{animation:none}}
+.brand,.mobile-brand{white-space:normal;line-height:1.25}
+.brand img,.mobile-brand img{object-fit:contain;flex-shrink:0}

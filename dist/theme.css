@@ -58,3 +58,5 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
  .mobile-bottom-nav button[aria-current="page"]{background:#eef5e5;color:#163f69;font-weight:700}
  .mobile-bottom-nav .icon{width:20px;height:20px}
 }
+.mobile-bottom-nav.admin-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:899px){.admin-bottom-nav button{min-height:62px}.admin-bottom-nav button span{max-width:100%;overflow-wrap:normal}}

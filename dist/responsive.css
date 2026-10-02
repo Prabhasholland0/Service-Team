@@ -14,6 +14,7 @@ img,video,canvas,svg{max-width:100%}
 .mobile-brand{display:flex;align-items:center;gap:8px;font:800 1rem Manrope,sans-serif;min-width:0;flex:1}
 .mobile-brand{border:0;background:transparent;color:inherit;cursor:pointer;padding:0;text-align:left;min-height:44px}
 .mobile-brand img{width:29px;height:29px}
+.mobile-brand-copy{display:grid;gap:1px;min-width:0}.mobile-brand-copy strong{font:800 1rem Manrope,sans-serif}.mobile-brand-copy small{font-size:7px;letter-spacing:1.2px;color:#6a82a7;white-space:nowrap}
 .top-right{gap:8px;flex-shrink:0}
 .top-right .pill{display:none}
 .top-right .avatar{width:30px;height:30px}

@@ -37,9 +37,14 @@
 .brand-copy{display:flex;flex-direction:column;min-width:0;gap:4px}.brand-copy strong{font:inherit;line-height:1.1}.brand-copy small{font:500 8px/1.3 'DM Sans',sans-serif;letter-spacing:.55px;white-space:nowrap;color:#a9bfdf}
 .mobile-brand .brand-copy small{color:#5c7297;font-size:8px;letter-spacing:.3px}
 .sidebar .brand{gap:8px;white-space:normal}.sidebar .brand-copy strong{font-size:18px}.sidebar .brand img{width:34px;height:34px}
-.profile-mobile-hero{background-color:#063884;background-image:linear-gradient(90deg,#074fbd 0%,#0641a0cc 47%,#082d6622 100%),url('worship-banner.png');background-repeat:no-repeat;background-size:100% 100%,auto 100%;background-position:center,right center;padding-bottom:66px;min-height:200px}
+.profile-mobile-hero{background:#073783;padding-bottom:66px;min-height:200px}
+.profile-mobile-hero:before{content:'';position:absolute;top:0;right:0;height:100%;aspect-ratio:1.5;z-index:-1;background:url('worship-banner.png') right center/auto 100% no-repeat;mask-image:linear-gradient(90deg,transparent 0%,#000 70%)}
 .profile-motto{position:absolute;right:20px;bottom:29px;font:400 27px/1.3 'Allura','Segoe Script',cursive;color:#e0ecff;text-shadow:0 1px 4px #031e5290}
 .profile-photo-trigger:after{content:none}
+.profile-side{min-width:0}.profile-side .profile-skills{margin-bottom:12px}.profile-side .profile-actions{margin:0;padding:0}
+@font-face{font-family:'MediaHub Signature';src:url('Signature-Regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+.profile-motto{font-family:'MediaHub Signature','Allura',cursive;font-size:34px;line-height:1.2}
+.brand-copy{align-items:flex-start;gap:6px;text-align:left}.brand-copy strong{display:block;line-height:1.2}.brand-copy small{display:block;line-height:1.4;letter-spacing:0;font-size:9px}.sidebar .brand-copy strong{font-size:17px;white-space:nowrap}.sidebar .brand-copy small{font-size:9px}.mobile-brand .brand-copy small{font-size:9px;letter-spacing:0}
 @media(min-width:900px){
  .content:has(.profile-sheet){padding:32px 38px 40px}
  .profile-sheet{max-width:960px;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:0 20px;align-items:start}
@@ -48,6 +53,6 @@
  .profile-hero-content{gap:22px}.profile-photo-wrap .avatar{width:92px;height:92px;font-size:29px}.profile-identity h1{font-size:30px}.profile-identity p{font-size:14px}.profile-status{font-size:12px}
  .profile-mobile-stats{margin:-22px 18px 24px;padding:17px}.profile-mobile-stats strong{font-size:14px}.profile-mobile-stats small{font-size:12px}
  .profile-personal,.profile-skills{padding:22px;min-width:0}.profile-role{flex:none}.profile-section-heading h2{font-size:16px}
- .profile-actions{display:flex;justify-content:flex-end;margin-top:4px}.profile-actions .btn{width:auto;min-width:150px}.profile-motto{font-size:34px;right:32px;bottom:32px}
+ .profile-side{grid-column:2;grid-row:3}.profile-actions{display:flex;justify-content:flex-start;gap:10px}.profile-actions .btn{width:auto;min-width:0;flex:1}.profile-motto{font-size:42px;right:32px;bottom:32px}
 }
 @media(max-width:374px){.mobile-brand{gap:6px}.mobile-brand .brand-copy strong{font-size:14px}.mobile-brand .brand-copy small{font-size:7px;letter-spacing:0}.mobile-brand img{width:26px;height:26px}.profile-motto{font-size:25px}}

@@ -3,6 +3,13 @@ export const configured=Boolean(SUPABASE_URL&&SUPABASE_PUBLISHABLE_KEY);
 export let db;
 export async function connect(){if(!configured)return null;const {createClient}=await import('./vendor/supabase.js');db=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);return db;}
 export async function rpc(name,args){const {data,error}=await db.rpc(name,args);if(error)throw error;return data;}
+export async function signInWithIdentifier(identifier,password){
+ if(identifier.includes('@'))return db.auth.signInWithPassword({email:identifier,password});
+ const response=await fetch(`${SUPABASE_URL}/functions/v1/phone-signin`,{method:'POST',headers:{apikey:SUPABASE_PUBLISHABLE_KEY,'Content-Type':'application/json'},body:JSON.stringify({phone:identifier,password})});
+ const body=await response.json();
+ if(!response.ok)throw Error(body.error||'Unable to sign in. Check your phone number and password.');
+ return db.auth.setSession({access_token:body.access_token,refresh_token:body.refresh_token});
+}
 export async function loadDay(date){
  const [p,a,s]=await Promise.all([
   db.from('profiles').select('id,full_name,email,phone,avatar_url,skills,active,is_admin').order('full_name'),

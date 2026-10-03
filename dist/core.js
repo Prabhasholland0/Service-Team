@@ -1,4 +1,6 @@
 export const services = [{id:'first',name:'1st Service'},{id:'second',name:'2nd Service'},{id:'hindi',name:'Hindi Service'},{id:'telugu',name:'Telugu Service'}];
+export const campuses=[{id:'kompally',name:'Kompally'},{id:'eden_square',name:'Eden Square'}];
+export const servicesFor=campus=>campus==='eden_square'?[{id:'eden_english',name:'English'},{id:'eden_hindi',name:'Hindi'}]:services;
 export function positionsFor(count=8){if(!Number.isInteger(count)||count<0||count>16)throw Error('Choose between 0 and 16 cameras.');return ['producer','ccu',...Array.from({length:count},(_,i)=>`cam_${i+1}`)];}
 export const positions=positionsFor();
 export const roleFor = p => p.startsWith('cam_') ? 'camera' : p;

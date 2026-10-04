@@ -1,7 +1,7 @@
 import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './config.js';
 export const configured=Boolean(SUPABASE_URL&&SUPABASE_PUBLISHABLE_KEY);
 export let db;
-export async function connect(){if(!configured)return null;const {createClient}=await import('./vendor/supabase.js');db=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);return db;}
+export async function connect(){if(!configured)return null;const {createClient}=await import('./vendor/supabase.js');db=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{global:{fetch:(url,options={})=>fetch(url,{...options,...(String(url).includes('/rest/v1/rpc/')?{keepalive:true}:{})})}});return db;}
 export async function rpc(name,args){const {data,error}=await db.rpc(name,args);if(error)throw error;return data;}
 export async function signInWithIdentifier(identifier,password){
  if(identifier.includes('@'))return db.auth.signInWithPassword({email:identifier,password});

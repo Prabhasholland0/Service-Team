@@ -106,3 +106,9 @@
 .stat-action:hover{background:#f5f9ff}
 .stat-action[aria-pressed=true]{outline:2px solid #0751c3;outline-offset:2px;background:#f5f9ff}
 #availability-overview-title{scroll-margin-top:95px}
+.report-back{margin-bottom:18px}.team-page-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.response-page-summary{display:flex;align-items:center;gap:18px;padding:20px 24px;background:#fff;border:1px solid var(--line);border-radius:18px;margin-bottom:22px}
+.response-page-summary>strong{font-size:40px;line-height:1;color:var(--blue)}.response-page-summary span{font-weight:700}.response-page-summary p{color:var(--muted);font-size:14px;line-height:1.5;margin-top:4px}
+.response-member-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.response-member-card{padding:22px;min-width:0}.response-member-card .person{margin-bottom:18px}.response-member-card .person>div:last-child{min-width:0}.response-member-card .person-name{overflow-wrap:anywhere}
+.response-service-groups{display:grid;gap:12px}.response-service-group{padding:12px 14px;border-radius:12px;background:#f3f6fc}.response-service-group h3{display:flex;align-items:center;gap:7px;font-size:13px;line-height:1.5;margin-bottom:8px}.response-service-group .icon{width:17px;height:17px;flex-shrink:0}.response-service-group.available{background:#edf8ef;color:#226442}.response-service-group.not_available{background:#fff3f1;color:#9d433b}.response-service-group.not_submitted{background:#f2f5fa;color:#586980}.response-service-tags{display:flex;flex-wrap:wrap;gap:6px}.response-service-tags span{padding:5px 9px;border-radius:7px;background:#ffffffb3;font-size:13px;font-weight:600;overflow-wrap:anywhere}
+@media(max-width:699px){.response-member-grid{grid-template-columns:minmax(0,1fr);gap:12px}.response-member-card{padding:18px}.response-page-summary{padding:16px;gap:14px}.response-page-summary>strong{font-size:34px}.report-back{margin-bottom:14px}.team-page-actions{gap:8px}}

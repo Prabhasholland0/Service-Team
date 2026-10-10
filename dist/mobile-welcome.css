@@ -76,3 +76,10 @@
 }
 @media(max-width:899px) and (max-height:580px){.welcome-register .welcome-access{padding-top:8px}}
 @media(min-width:550px) and (max-width:899px) and (max-height:350px){.welcome-register .welcome-access{margin-block:4px;padding-block:4px}}
+.welcome-forgot{justify-self:end;background:transparent;color:#0755c5;font-weight:700;font-size:13px;min-height:44px;padding:4px 0;margin-top:-12px}
+.auth-feedback{border:1px solid #cddcf1;background:#f0f6ff;color:#224e80;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5;margin:0 0 16px;overflow-wrap:anywhere}
+.auth-feedback.success{background:#eef9ec;border-color:#cee4bd;color:#315d24}.auth-feedback.error{background:#fff3f1;border-color:#f0c9c2;color:#973d32}
+.welcome-recovery .welcome-form-intro{display:block;color:#52617d;font-size:14px;line-height:1.5;margin:0 0 18px}.welcome-recovery .welcome-switch button{min-height:44px}.welcome-recovery .welcome-switch{justify-content:center}
+@media(max-width:899px){.welcome-recovery .welcome-form-wrap{width:100%}.welcome-forgot{margin-top:-8px;font-size:12px}.auth-feedback{font-size:12px;padding:9px 11px;margin-bottom:12px}.welcome-recovery .welcome-form-intro{font-size:13px;margin-bottom:14px}}
+@media(max-width:899px) and (max-height:740px){.welcome-recovery .welcome-message{display:none}.welcome-recovery .welcome-form-intro{margin-bottom:10px}.welcome-forgot{margin-top:-8px;min-height:44px;padding:4px}.welcome-login:not(.welcome-recovery) .welcome-switch{margin-top:6px}}
+@media(max-width:899px) and (max-height:580px){.welcome-recovery .welcome-access h2{font-size:1.4rem}.welcome-recovery .welcome-form-intro{font-size:12px;line-height:1.4}.welcome-recovery .welcome-access{padding-top:15px;padding-bottom:12px}.welcome-recovery .auth-feedback{margin-bottom:9px}.welcome-recovery .welcome-form{gap:8px}}

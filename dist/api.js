@@ -14,10 +14,10 @@ export async function loadDay(date){
  const [p,a,s]=await Promise.all([
   db.from('profiles').select('id,full_name,email,phone,avatar_url,skills,active,is_admin').order('full_name'),
   db.from('availability').select('user_id,service_date,service_id,status,submitted_at').eq('service_date',date),
-  db.from('schedules').select('id,service_date,service_id,camera_count,status,revision,updated_at,updated_by,assignments(position,user_id)').eq('service_date',date)
+  db.from('schedules').select('id,service_date,service_id,camera_count,not_needed_cameras,status,revision,updated_at,updated_by,assignments(position,user_id)').eq('service_date',date)
  ]);
  for(const result of [p,a,s])if(result.error)throw result.error;
- return {members:p.data,rows:a.data,schedules:s.data.map(s=>({...s,assignments:Object.fromEntries(s.assignments.map(a=>[a.position,a.user_id]))}))};
+ return {members:p.data,rows:a.data,schedules:s.data.map(s=>({...s,assignments:{...Object.fromEntries(s.assignments.map(a=>[a.position,a.user_id])),...Object.fromEntries((s.not_needed_cameras||[]).map(p=>[p,'not_needed']))}}))};
 }
 export async function uploadPhoto(userId,file){if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>2*1024*1024)throw Error('Choose a JPG, PNG, or WebP under 2 MB.');const path=`${userId}/${crypto.randomUUID()}.${file.type.split('/')[1]}`;const {error}=await db.storage.from('avatars').upload(path,file,{contentType:file.type});if(error)throw error;return path;}
 export async function photoUrl(path){if(!path)return '';const {data,error}=await db.storage.from('avatars').createSignedUrl(path,3600);return error?'':data.signedUrl;}

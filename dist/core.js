@@ -10,14 +10,14 @@ export function candidates(members,rows,date,service,position) { return members.
 export function validate(assignments,members,rows,date,service,complete=true,cameraCount=8){
   const positions=positionsFor(cameraCount);
   const errors=Object.keys(assignments).filter(p=>!positions.includes(p)).map(p=>`${positionName(p)} is outside the selected camera count.`),used=new Map();
-  for(const p of positions){const id=assignments[p];if(!id){if(complete)errors.push(`${positionName(p)} needs a team member.`);continue;}
+  for(const p of positions){const id=assignments[p];if(id==='not_needed'){if(!p.startsWith('cam_'))errors.push(positionName(p)+' cannot be marked Not needed.');continue;}if(!id){if(complete)errors.push(`${positionName(p)} needs a team member.`);continue;}
     if(!candidates(members,rows,date,service,p).some(m=>m.id===id))errors.push(`${positionName(p)}: member is unavailable, inactive, or missing the required skill.`);
     if(used.has(id))errors.push(`${positionName(p)}: member is already assigned to ${positionName(used.get(id))}.`);used.set(id,p);
   } return errors;
 }
 export function autoAssign(members,rows,date,service,existing={},cameraCount=8){
   const positions=positionsFor(cameraCount);
-  const result={...existing}, occupied=new Map(Object.entries(result).filter(([,id])=>id).map(([p,id])=>[id,p]));
+  const result={...existing}, occupied=new Map(Object.entries(result).filter(([,id])=>id&&id!=='not_needed').map(([p,id])=>[id,p]));
   const fixed=new Set(Object.keys(result).filter(p=>result[p]));
   function match(p,seen){for(const m of candidates(members,rows,date,service,p)){if(seen.has(m.id))continue;seen.add(m.id);const prior=occupied.get(m.id);if(!prior||(!fixed.has(prior)&&match(prior,seen))){occupied.set(m.id,p);result[p]=m.id;return true;}}return false;}
   for(const p of positions.filter(p=>!fixed.has(p)).sort((a,b)=>candidates(members,rows,date,service,a).length-candidates(members,rows,date,service,b).length))match(p,new Set());

@@ -85,7 +85,7 @@ export function bindServiceSwipe(viewport, onSwipe, isReady) {
   viewport.addEventListener('pointerdown', event => {
     if (event.pointerType !== 'touch') return;
     if (!event.isPrimary) { reset(); return; }
-    const control = event.target.closest('button,a,input,select,textarea,[contenteditable],.table-scroll');
+    const control = event.target.closest('button,a,input,select,textarea,[contenteditable],.table-scroll,.date-control,.camera-count-label');
     if (!mobile.matches || !isReady() || event.clientX < 24 || event.clientX > innerWidth - 24 ||
         (control && !control.matches('.duty,.published-duty-card'))) { reset(); return; }
     gesture = { id: event.pointerId, x: event.clientX, y: event.clientY, started: performance.now(), axis: null,
@@ -106,7 +106,7 @@ export function bindServiceSwipe(viewport, onSwipe, isReady) {
     const current = gesture;
     reset();
     const x = event.clientX - current.x, y = Math.abs(event.clientY - current.y);
-    const threshold = Math.max(48, Math.min(80, viewport.clientWidth * .18));
+    const threshold = current.target.matches('.duty') ? 48 : Math.max(48, Math.min(80, viewport.clientWidth * .18));
     if (!mobile.matches || !isReady() || current.sequence !== multitouchSequence || current.axis !== 'horizontal' || Math.abs(x) < threshold ||
         Math.abs(x) < y * 1.5 || performance.now() - current.started > 800) return;
     suppressedTarget = current.target;

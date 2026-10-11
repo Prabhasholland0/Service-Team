@@ -144,3 +144,4 @@
 /* Only the service body slides; the surrounding navigation stays stationary. */
 .service-slide-viewport{position:relative;min-width:0}.service-slide-content{min-width:0}
 @media(max-width:899px){.service-slide-viewport{touch-action:pan-y pinch-zoom}.service-slide-viewport.service-is-sliding{overflow:hidden}.service-slide-layer{position:absolute;inset:0 0 auto;width:100%}.service-is-sliding>.service-slide-content{will-change:transform}.service-is-sliding .published-duty-card{transition:none;transform:none}}
+@media(max-width:899px){.schedule-swipe-surface{touch-action:pan-y pinch-zoom}.service-is-sliding .duty{transition:none;transform:none}}

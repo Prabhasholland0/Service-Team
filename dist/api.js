@@ -3,6 +3,8 @@ export const configured=Boolean(SUPABASE_URL&&SUPABASE_PUBLISHABLE_KEY);
 export let db;
 export async function connect(){if(!configured)return null;const {createClient}=await import('./vendor/supabase.js');db=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{global:{fetch:(url,options={})=>fetch(url,{...options,...(String(url).includes('/rest/v1/rpc/')?{keepalive:true}:{})})}});return db;}
 export async function rpc(name,args){const {data,error}=await db.rpc(name,args);if(error)throw error;return data;}
+export async function loadAssignmentNotifications(){const {data,error}=await db.from('assignment_notifications').select('id,schedule_id,service_date,service_id,position,created_at,read_at').order('created_at',{ascending:false}).limit(40);if(error)throw error;return data||[];}
+export async function markAssignmentNotificationRead(id){const {error}=await db.from('assignment_notifications').update({read_at:new Date().toISOString()}).eq('id',id);if(error)throw error;}
 export async function signInWithIdentifier(identifier,password){
  if(identifier.includes('@'))return db.auth.signInWithPassword({email:identifier,password});
  const response=await fetch(`${SUPABASE_URL}/functions/v1/phone-signin`,{method:'POST',headers:{apikey:SUPABASE_PUBLISHABLE_KEY,'Content-Type':'application/json'},body:JSON.stringify({phone:identifier,password})});
